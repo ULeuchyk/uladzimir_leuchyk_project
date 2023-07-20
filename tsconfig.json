@@ -35,7 +35,12 @@
     "types": [
     "@types/mocha", 
     "@types/node", 
-    "jest"
+    "jest",
+    "@types/superagent",
+    "@types/selenium-webdriver",
+    "@wdio/globals/types",
+    "expect-webdriverio",
+    "@wdio/cucumber-framework"
     ],  
     // "allowUmdGlobalAccess": true,                     /* Allow accessing UMD globals from modules. */
     // "moduleSuffixes": [],                             /* List of file name suffixes to search when resolving a module. */
