@@ -15,7 +15,7 @@ export const validEmail = generateRandomString(5)+"@tesdfsadfsdfst.gultest"
 export const validPassword = "1234TYdas"
 export const tooLongFirstname = generateRandomString(128)
 export const alreadyTakenUsername = 'Bear'
-export const lengthErrorElement = `//p[@class = 'gl-field-error']`
+export const lengthErrorElement = `//div[@class ="col form-group"]//p[@class = 'gl-field-error']`
 export const lengthErrorText = "First name is too long (maximum is 127 characters)" 
 export const takenUsernameErrorElement = `//li[contains(text(), "Username has already been taken")]`
 

@@ -8,7 +8,6 @@ export const validNameWithSpaces: string = "Brad Pitt";
 export const validEmail: string = "jscript@email.com";
 export const validPasswordMoreThenEightCharacters: string = "passWord1@";
 export const validPasswordEightCharacters: string = "passWo1@"
-export const validRepeatPassword: string = validPasswordMoreThenEightCharacters;
 export const invalidName: string = "Brad15Pitt";
 export const invalidEmail: string = "invalidemail.com";
 export const invalidShortPassword: string = "paS1@";

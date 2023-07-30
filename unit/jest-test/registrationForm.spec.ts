@@ -6,7 +6,6 @@ import {
   RepeatPasswordError,
   validName,
   validEmail,
-  validRepeatPassword,
   invalidName,
   invalidEmail,
   invalidRepeatPassword,
@@ -17,10 +16,10 @@ import {
   invalidPasswordWithoutSpecialSymbol,
   invalidPasswordWithoutCapital,
   invalidPasswordWithoutdigit,
-  EmailError,
+  EmailError
 } from '../src/constants/constants';
 
-describe('RegistrationForm Positive Tests', () => {
+describe('RegistrationForm Tests', () => {
   let registrationForm: RegistrationForm;
 
   beforeEach(() => {
@@ -28,50 +27,32 @@ describe('RegistrationForm Positive Tests', () => {
       validName,
       validEmail,
       validPasswordMoreThenEightCharacters,
-      validRepeatPassword
+      validPasswordMoreThenEightCharacters
     );
   });
 
-  it('should validate a valid name', () => {
-    const name = registrationForm.setUserName();
-    expect(name).toBe('Name is Valid');
+  it('should register new user with valid credentials', () => {
+    expect(registrationForm.submitButton()).toBe(`Congratulations! New user ${validName} is created`);
   });
 
-  it('should validate a valid email', () => {
-    const email = registrationForm.setUserEmail();
-    expect(email).toBe('Email is Valid');
-  });
-
-  it('should validate a valid password', () => {
-    const password = registrationForm.setUserPassword();
-    expect(password).toBe('Password is Valid');
-  });
-
-  it('should validate a matching repeat password', () => {
-    const repeatPass = registrationForm.setRepeatPassword();
-    expect(repeatPass).toBe('Password confirmed.');
-  });
-
-  it('should validate a valid name with spaces', () => {
+  it('should register new user if entered name has spaces', () => {
     registrationForm = new RegistrationForm(
       validNameWithSpaces,
       validEmail,
       validPasswordMoreThenEightCharacters,
-      validRepeatPassword
+      validPasswordMoreThenEightCharacters
     );
-    const name = registrationForm.setUserName();
-    expect(name).toBe('Name is Valid');
+    expect(registrationForm.submitButton()).toBe(`Congratulations! New user ${validNameWithSpaces} is created`);
   });
 
-  it('should validate a valid password with the length = 8 characters', () => {
+  it('should register new user if the password = 8 characters', () => {
     registrationForm = new RegistrationForm(
         validName,
         validEmail,
         validPasswordEightCharacters,
-        validRepeatPassword
+        validPasswordEightCharacters
       );
-    const password = registrationForm.setUserPassword();
-    expect(password).toBe('Password is Valid');
+      expect(registrationForm.submitButton()).toBe(`Congratulations! New user ${validName} is created`);
   });
   
   it('should throw an error for a name that contains digits', () => {
@@ -79,11 +60,9 @@ describe('RegistrationForm Positive Tests', () => {
       invalidName,
       validEmail,
       validPasswordMoreThenEightCharacters,
-      validRepeatPassword
+      validPasswordMoreThenEightCharacters
     );
-    expect(() => {
-      registrationForm.setUserName();
-    }).toThrow(NameError);
+    expect(registrationForm.submitButton()).toBe(NameError);
   });
 
   it('should throw an error for an email without "at" symbol ', () => {
@@ -91,47 +70,9 @@ describe('RegistrationForm Positive Tests', () => {
       validName,
       invalidEmail,
       validPasswordMoreThenEightCharacters,
-      validRepeatPassword
+      validPasswordMoreThenEightCharacters
     );
-    expect(() => {
-      registrationForm.setUserEmail();
-    }).toThrow(EmailError);
-  });
-
-  it('should throw an error for a password without an uppercase letter', () => {
-    registrationForm = new RegistrationForm(
-      validName,
-      validEmail,
-      invalidPasswordWithoutCapital,
-      validRepeatPassword
-    );
-    expect(() => {
-      registrationForm.setUserPassword();
-    }).toThrow(PasswordError);
-  });
-
-  it('should throw an error for a password without a digit', () => {
-    registrationForm = new RegistrationForm(
-      validName,
-      validEmail,
-      invalidPasswordWithoutdigit,
-      validRepeatPassword
-    );
-    expect(() => {
-      registrationForm.setUserPassword();
-    }).toThrow(PasswordError);
-  });
-
-  it('should throw an error for a password without a special symbol', () => {
-    registrationForm = new RegistrationForm(
-      validName,
-      validEmail,
-      invalidPasswordWithoutSpecialSymbol,
-      validRepeatPassword
-    );
-    expect(() => {
-      registrationForm.setUserPassword();
-    }).toThrow(PasswordError);
+    expect(registrationForm.submitButton()).toBe(EmailError);
   });
 
   it('should throw an error for a short password', () => {
@@ -139,11 +80,9 @@ describe('RegistrationForm Positive Tests', () => {
       validName,
       validEmail,
       invalidShortPassword,
-      validRepeatPassword
+      invalidShortPassword
     );
-    expect(() => {
-      registrationForm.setUserPassword();
-    }).toThrow(PasswordError);
+    expect(registrationForm.submitButton()).toBe(PasswordError);
   });
 
   it('should throw an error for non-matching passwords', () => {
@@ -153,8 +92,46 @@ describe('RegistrationForm Positive Tests', () => {
       validPasswordMoreThenEightCharacters,
       invalidRepeatPassword
     );
-    expect(() => {
-      registrationForm.setRepeatPassword();
-    }).toThrow(RepeatPasswordError);
+    expect(registrationForm.submitButton()).toBe(RepeatPasswordError);
+  });
+
+  it('should throw an error if name and email are invalid', () => {
+    registrationForm = new RegistrationForm(
+      invalidName,
+      invalidEmail,
+      validPasswordMoreThenEightCharacters,
+      validPasswordMoreThenEightCharacters,
+    );
+    expect(registrationForm.submitButton()).toBe(NameError + "\n" + EmailError);
+  });
+
+  it('should throw an error if name and password are invalid', () => {
+    registrationForm = new RegistrationForm(
+      invalidName,
+      validEmail,
+      invalidPasswordWithoutdigit,
+      invalidPasswordWithoutdigit
+    );
+    expect(registrationForm.submitButton()).toBe(NameError + "\n" + PasswordError);
+  });
+
+  it('should throw an error if email and password are invalid', () => {
+    registrationForm = new RegistrationForm(
+      validName,
+      invalidEmail,
+      invalidPasswordWithoutSpecialSymbol,
+      invalidPasswordWithoutSpecialSymbol
+    );
+    expect(registrationForm.submitButton()).toBe(EmailError + "\n" + PasswordError);
+  });
+
+  it('should throw an error if name, email and password are invalid', () => {
+    registrationForm = new RegistrationForm(
+      invalidName,
+      invalidEmail,
+      invalidPasswordWithoutCapital,
+      invalidPasswordWithoutCapital
+    );
+    expect(registrationForm.submitButton()).toBe(NameError + "\n" + EmailError + "\n" + PasswordError);
   });
 });

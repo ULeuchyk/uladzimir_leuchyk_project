@@ -9,50 +9,36 @@ import { EmailError,
 
 
 export class RegistrationForm {
-   private name!: string;
-   private email!: string; 
-   private password!: string;
-   private repeatPassword!: string;
 
-
-    constructor(name: string, email: string, password: string, repeatPassword: string ) {
-        this.name = name
-        this.email = email
-        this.password = password
-        this.repeatPassword = repeatPassword
+    constructor(protected name: string, protected email: string, protected password: string, protected repeatPassword: string ) {
+  
     }
 
-    public setUserName () {
-        if (this.name.match(latinLettersAndSpacesPattern)) {
-          return("Name is Valid");
-        } else {
-            throw new Error(NameError);
-        }
-    }
+    public submitButton(): string {
+     let errorMessage = '';
 
-    public setUserEmail () {
-        if (this.email.match(emailPattern)) {
-          return("Email is Valid");
-        } else {
-            throw new Error(EmailError);
-        }
+      if (!this.name.match(latinLettersAndSpacesPattern)) {
+        errorMessage += NameError + "\n";
+      }
+      if (!this.email.match(emailPattern)) {
+        errorMessage += EmailError + "\n";
+      }
+      if (this.password.length < minPasswordLength || !this.password.match(passwordPattern)) {
+        errorMessage += PasswordError + "\n";
+      }
+      if (this.repeatPassword !== this.password) {
+        errorMessage += RepeatPasswordError;
+      }
+      if (errorMessage) {
+      return errorMessage = errorMessage.trim();
     }
+      else {
 
-    public setUserPassword () {
-        if (this.password.length >= minPasswordLength && this.password.match(passwordPattern)) {
-          return("Password is Valid");
-        } else {
-            throw new Error(PasswordError);
-        }
+      return `Congratulations! New user ${this.name} is created`;
     }
-
-    public setRepeatPassword () {
-        if((this.repeatPassword.length >= minPasswordLength && this.repeatPassword.match(passwordPattern)) && this.password === this.repeatPassword) {
-          return("Password confirmed.");
-        } else {
-          throw new Error(RepeatPasswordError);
-        }
-    }
+  }
 }
 
 
+    const reg = new RegistrationForm("a", "sadadadepae@mail.cr", "11Word1@", "11Word1@")
+console.log(reg.submitButton())
