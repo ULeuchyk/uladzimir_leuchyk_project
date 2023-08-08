@@ -26,12 +26,6 @@ export enum COMPANY_DROP_DOWN {
     PRESS = "Press "
 }
 
-export enum CONTACT_US_DROP_DOWN {
-    HELP = "Get help ",
-    CUSTOMER_PORTAL = "Customer portal "
-
-}
-
 export enum PAGES {
     HOME = "Home",
     NEWSLETTER = "Newsletter",

@@ -1,7 +1,7 @@
 import { expect, test } from "@playwright/test"
 import { PageFactory } from "../src/pages/pageFactory"
-import { BUTTON_SIGN, COMPANY_DROP_DOWN, MENU_BUTTONS_WITHOUT_DROP_DOWN, MENU_BUTTONS_WITH_DROP_DOWN, PAGES, SIGN_UP_FIELDS } from "../src/support/types"
-import { SIGN_UP_URL, alreadyTakenUsername, homePageTitle, lengthErrorElement, lengthErrorText, newsletterPageTitle, searchObject, takenUsernameErrorElement, tooLongFirstname, validEmail, validFirstName, validLastName, validPassword, validUsername, verifyButton } from "../src/support/constants"
+import { BUTTON_SIGN, COMPANY_DROP_DOWN, MENU_BUTTONS_WITHOUT_DROP_DOWN, MENU_BUTTONS_WITH_DROP_DOWN, PAGES } from "../src/support/types"
+import { SIGN_UP_URL, alreadyTakenUsername, homePageTitle, lengthErrorText, newsletterPageTitle, searchObject, tooLongFirstname, validEmail, validFirstName, validLastName, validPassword, validUsername } from "../src/support/constants"
 import { HomePage } from "../src/pages/homePage";
 import { NewsletterPage } from "../src/pages/newsletterPage";
 import { SignUpPage } from "../src/pages/signUpPage";
@@ -26,7 +26,7 @@ test.describe("GitLab general tests", async () => {
 
     test("Should display Home page title correctly", async () => {
         await homePage.visitPage();
-        await (await homePage.getAcceptCookiesButton()).click();
+        await homePage.getAcceptCookiesButton().click();
         await (await homePage.navigationBar.getSimpleNavigationButtonByInnerText(MENU_BUTTONS_WITHOUT_DROP_DOWN.HOME)).click();
         await homePage.waitUntilTitleContains(homePageTitle);
     })
@@ -43,31 +43,27 @@ test.describe("GitLab general tests", async () => {
     })
 
     test("Should open Sign Up page correctly", async () => {
-        await (await newsletterPage.navigationBar.getSignButton(BUTTON_SIGN.UP)).click();
+        await (await newsletterPage.navigationBar.getSignButtonByText(BUTTON_SIGN.UP)).click();
         signUpPage.waitUntilUrlContains(SIGN_UP_URL)
     })
 })
 test.describe("GitLab SignUp tests", async () => {
     test.beforeEach(async ({ browser }) => {
-        await (await signUpPage.getInputFieldByName(SIGN_UP_FIELDS.FIRST_NAME)).fill('')
-        await (await signUpPage.getInputFieldByName(SIGN_UP_FIELDS.LAST_NAME)).fill('')
-        await (await signUpPage.getInputFieldByName(SIGN_UP_FIELDS.USERNAME)).fill('')
-        await (await signUpPage.getInputFieldByName(SIGN_UP_FIELDS.EMAIL)).fill('')
-        await (await signUpPage.getInputFieldByName(SIGN_UP_FIELDS.PASSWORD)).fill('')
+        await signUpPage.cleanSignUpInputFields()
     })
 
     test("Should display warning message if First name has more than 127 letter", async () => {
         await signUpPage.fillFirstNameField(tooLongFirstname)
-        expect(await signUpPage.getElementByLocator(lengthErrorElement).innerText()).toContain(lengthErrorText)
+        expect(await signUpPage.getLengthError().innerText()).toContain(lengthErrorText)
     })
 
     test("Should display error message if Username is already taken", async () => {
         await signUpPage.performSignUp(validFirstName, validLastName, alreadyTakenUsername, validEmail, validPassword)
-        expect(signUpPage.getElementByLocator(takenUsernameErrorElement)).toBeVisible()
+        expect(signUpPage.getUsernameError()).toBeVisible()
     })
 
     test("Should register new user", async () => {
         await signUpPage.performSignUp(validFirstName, validLastName, validUsername, validEmail, validPassword)
-        expect(signUpPage.getElementByLocator(verifyButton)).toBeVisible()
+        expect(signUpPage.getConfirmationMessage()).toBeVisible()
     })
 })

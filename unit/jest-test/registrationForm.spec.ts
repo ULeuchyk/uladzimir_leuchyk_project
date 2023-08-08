@@ -22,17 +22,14 @@ import {
 describe('RegistrationForm Tests', () => {
   let registrationForm: RegistrationForm;
 
-  beforeEach(() => {
+  it('should register new user with valid credentials', () => {
     registrationForm = new RegistrationForm(
       validName,
       validEmail,
       validPasswordMoreThenEightCharacters,
       validPasswordMoreThenEightCharacters
     );
-  });
-
-  it('should register new user with valid credentials', () => {
-    expect(registrationForm.submitButton()).toBe(`Congratulations! New user ${validName} is created`);
+    expect(registrationForm.submitForm()).toBe(`Congratulations! New user ${validName} is created`);
   });
 
   it('should register new user if entered name has spaces', () => {
@@ -42,19 +39,19 @@ describe('RegistrationForm Tests', () => {
       validPasswordMoreThenEightCharacters,
       validPasswordMoreThenEightCharacters
     );
-    expect(registrationForm.submitButton()).toBe(`Congratulations! New user ${validNameWithSpaces} is created`);
+    expect(registrationForm.submitForm()).toBe(`Congratulations! New user ${validNameWithSpaces} is created`);
   });
 
   it('should register new user if the password = 8 characters', () => {
     registrationForm = new RegistrationForm(
-        validName,
-        validEmail,
-        validPasswordEightCharacters,
-        validPasswordEightCharacters
-      );
-      expect(registrationForm.submitButton()).toBe(`Congratulations! New user ${validName} is created`);
+      validName,
+      validEmail,
+      validPasswordEightCharacters,
+      validPasswordEightCharacters
+    );
+    expect(registrationForm.submitForm()).toBe(`Congratulations! New user ${validName} is created`);
   });
-  
+
   it('should throw an error for a name that contains digits', () => {
     registrationForm = new RegistrationForm(
       invalidName,
@@ -62,7 +59,7 @@ describe('RegistrationForm Tests', () => {
       validPasswordMoreThenEightCharacters,
       validPasswordMoreThenEightCharacters
     );
-    expect(registrationForm.submitButton()).toBe(NameError);
+    expect(registrationForm.submitForm()).toBe(NameError);
   });
 
   it('should throw an error for an email without "at" symbol ', () => {
@@ -72,7 +69,7 @@ describe('RegistrationForm Tests', () => {
       validPasswordMoreThenEightCharacters,
       validPasswordMoreThenEightCharacters
     );
-    expect(registrationForm.submitButton()).toBe(EmailError);
+    expect(registrationForm.submitForm()).toBe(EmailError);
   });
 
   it('should throw an error for a short password', () => {
@@ -82,7 +79,7 @@ describe('RegistrationForm Tests', () => {
       invalidShortPassword,
       invalidShortPassword
     );
-    expect(registrationForm.submitButton()).toBe(PasswordError);
+    expect(registrationForm.submitForm()).toBe(PasswordError);
   });
 
   it('should throw an error for non-matching passwords', () => {
@@ -92,7 +89,7 @@ describe('RegistrationForm Tests', () => {
       validPasswordMoreThenEightCharacters,
       invalidRepeatPassword
     );
-    expect(registrationForm.submitButton()).toBe(RepeatPasswordError);
+    expect(registrationForm.submitForm()).toBe(RepeatPasswordError);
   });
 
   it('should throw an error if name and email are invalid', () => {
@@ -102,7 +99,7 @@ describe('RegistrationForm Tests', () => {
       validPasswordMoreThenEightCharacters,
       validPasswordMoreThenEightCharacters,
     );
-    expect(registrationForm.submitButton()).toBe(NameError + "\n" + EmailError);
+    expect(registrationForm.submitForm()).toBe(NameError + "\n" + EmailError);
   });
 
   it('should throw an error if name and password are invalid', () => {
@@ -112,7 +109,7 @@ describe('RegistrationForm Tests', () => {
       invalidPasswordWithoutdigit,
       invalidPasswordWithoutdigit
     );
-    expect(registrationForm.submitButton()).toBe(NameError + "\n" + PasswordError);
+    expect(registrationForm.submitForm()).toBe(NameError + "\n" + PasswordError);
   });
 
   it('should throw an error if email and password are invalid', () => {
@@ -122,7 +119,7 @@ describe('RegistrationForm Tests', () => {
       invalidPasswordWithoutSpecialSymbol,
       invalidPasswordWithoutSpecialSymbol
     );
-    expect(registrationForm.submitButton()).toBe(EmailError + "\n" + PasswordError);
+    expect(registrationForm.submitForm()).toBe(EmailError + "\n" + PasswordError);
   });
 
   it('should throw an error if name, email and password are invalid', () => {
@@ -132,6 +129,6 @@ describe('RegistrationForm Tests', () => {
       invalidPasswordWithoutCapital,
       invalidPasswordWithoutCapital
     );
-    expect(registrationForm.submitButton()).toBe(NameError + "\n" + EmailError + "\n" + PasswordError);
+    expect(registrationForm.submitForm()).toBe(NameError + "\n" + EmailError + "\n" + PasswordError);
   });
 });

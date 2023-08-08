@@ -21,8 +21,4 @@ export class BasePage {
         return this.page.locator(`button#onetrust-accept-btn-handler`);
     }
 
-    public getElementByLocator(locator: string) {
-        return this.page.locator(locator);
-    }
-
 }

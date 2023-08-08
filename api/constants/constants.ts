@@ -5,22 +5,22 @@ export const BASE_URL = 'https://reqres.in/api/'
 
 
 export const userCreated = {
-    "name": "Uladzimir",
-    "job": "QA"
+    name: "Uladzimir",
+    job: "QA"
 }
 
 export const userForPutMethod = {
-    "name": "Ivan",
-    "job": "Developer"
+    name: "Ivan",
+    job: "Developer"
 }
 
 export const userForPatchMethod = {
-    "name": "Nina",
-    "job": "Teacher"
+    name: "Nina",
+    job: "Teacher"
 }
 
 export const invalidLoginCredentials = {
-    "email": "someemail@gmail.com",
+    email: "someemail@gmail.com",
 }
 
 export const loginErrorMessage = "Missing password"
