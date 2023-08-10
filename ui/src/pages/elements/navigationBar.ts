@@ -1,4 +1,4 @@
-import { defaultTimer, searchButton } from "../../support/constants"
+import { defaultTimer, searchButtonLocator } from "../../support/constants"
 import { Page } from "@playwright/test"
 import { BUTTON_SIGN, COMPANY_DROP_DOWN, MENU_BUTTONS_WITHOUT_DROP_DOWN, MENU_BUTTONS_WITH_DROP_DOWN } from "../../support/types";
 
@@ -19,7 +19,7 @@ export class NavigationBar {
    }
 
    public getSearchButton() {
-      return this.page.locator(searchButton)
+      return this.page.locator(searchButtonLocator)
    }
 
 

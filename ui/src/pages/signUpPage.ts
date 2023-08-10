@@ -1,7 +1,7 @@
-import { SIGN_UP_URL, confirmationMessage, defaultTimer, lengthErrorElement, takenUsernameErrorElement } from "../support/constants";
+import { SIGN_UP_URL, confirmationMessageLocator, defaultTimer, lengthErrorLocator, takenUsernameErrorLocator } from "../support/constants";
 import { SIGN_UP_FIELDS } from "../support/types";
 import { BasePage } from "./basePage";
-import { Page } from "@playwright/test";
+import { Locator, Page } from "@playwright/test";
 
 export class SignUpPage extends BasePage {
   constructor(page: Page) {
@@ -20,30 +20,30 @@ export class SignUpPage extends BasePage {
     return this.page.locator(`button[data-qa-selector = "new_user_register_button"]`)
   }
 
-  public getLengthError() {
-    return this.page.locator(lengthErrorElement)
+  public getLengthErrorLocator():Locator {
+    return this.page.locator(lengthErrorLocator)
   }
 
-  public getUsernameError() {
-    return this.page.locator(takenUsernameErrorElement)
+  public getUsernameErrorLocator():Locator {
+    return this.page.locator(takenUsernameErrorLocator)
   }
 
   public getConfirmationMessage() {
-    return this.page.locator(confirmationMessage)
+    return this.page.locator(confirmationMessageLocator)
   }
 
-  public async fillFirstNameField(firstName: string,) {
+  public async fillSignUpFields(firstName: string, lastName: string, username: string, email: string, password: string) {
     await (await this.getInputFieldByName(SIGN_UP_FIELDS.FIRST_NAME)).type(firstName, { delay: defaultTimer });
-  }
-
-  public async performSignUp(firstName: string, lastName: string, username: string, email: string, password: string) {
-    await this.fillFirstNameField(firstName);
     await (await this.getInputFieldByName(SIGN_UP_FIELDS.LAST_NAME)).type(lastName, { delay: defaultTimer });
     await (await this.getInputFieldByName(SIGN_UP_FIELDS.USERNAME)).type(username, { delay: defaultTimer });
     await (await this.getInputFieldByName(SIGN_UP_FIELDS.EMAIL)).type(email, { delay: defaultTimer });
     await (await this.getInputFieldByName(SIGN_UP_FIELDS.PASSWORD)).type(password, { delay: defaultTimer });
+  }
+
+  public async clickContinueButtonOnSignUpForm() {
     await this.getContinueButton().click()
   }
+
 
   public async cleanSignUpInputFields() {
     await (await this.getInputFieldByName(SIGN_UP_FIELDS.FIRST_NAME)).fill('')

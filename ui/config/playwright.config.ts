@@ -34,7 +34,7 @@ export default defineConfig({
     /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
     trace: 'on',
     video: 'on',
-    headless: true,
+    headless: false,
     viewport: {width: 1920, height: 1080},
   },
 
@@ -46,10 +46,10 @@ export default defineConfig({
       
     },
 
-    {
-      name: 'firefox',
-      use: { ...devices['Desktop Firefox'] },
-    },
+    // {
+    //   name: 'firefox',
+    //   use: { ...devices['Desktop Firefox'] },
+    // },
 
     // {
     //   name: 'webkit',

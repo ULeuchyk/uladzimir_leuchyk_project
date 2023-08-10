@@ -4,17 +4,22 @@ export const nonExistingUserId = Math.floor(Math.random() * NUMBER_OF_USERS_ON_P
 export const BASE_URL = 'https://reqres.in/api/'
 
 
-export const userCreated = {
+type User = {
+    name: string;
+    job: string;
+  };
+
+export const userCreated:User = {
     name: "Uladzimir",
     job: "QA"
 }
 
-export const userForPutMethod = {
+export const userForPutMethod:User = {
     name: "Ivan",
     job: "Developer"
 }
 
-export const userForPatchMethod = {
+export const userForPatchMethod:User = {
     name: "Nina",
     job: "Teacher"
 }

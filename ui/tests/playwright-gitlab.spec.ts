@@ -53,17 +53,19 @@ test.describe("GitLab SignUp tests", async () => {
     })
 
     test("Should display warning message if First name has more than 127 letter", async () => {
-        await signUpPage.fillFirstNameField(tooLongFirstname)
-        expect(await signUpPage.getLengthError().innerText()).toContain(lengthErrorText)
+        await signUpPage.fillSignUpFields(tooLongFirstname, '', '', '', '')
+        expect(await signUpPage.getLengthErrorLocator().innerText()).toContain(lengthErrorText)
     })
 
     test("Should display error message if Username is already taken", async () => {
-        await signUpPage.performSignUp(validFirstName, validLastName, alreadyTakenUsername, validEmail, validPassword)
-        expect(signUpPage.getUsernameError()).toBeVisible()
+        await signUpPage.fillSignUpFields(validFirstName, validLastName, alreadyTakenUsername, validEmail, validPassword)
+        await signUpPage.clickContinueButtonOnSignUpForm()
+        expect(signUpPage.getUsernameErrorLocator()).toBeVisible()
     })
 
     test("Should register new user", async () => {
-        await signUpPage.performSignUp(validFirstName, validLastName, validUsername, validEmail, validPassword)
+        await signUpPage.fillSignUpFields(validFirstName, validLastName, validUsername, validEmail, validPassword)
+        await signUpPage.clickContinueButtonOnSignUpForm()
         expect(signUpPage.getConfirmationMessage()).toBeVisible()
     })
 })
