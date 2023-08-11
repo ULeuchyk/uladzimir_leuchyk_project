@@ -29,7 +29,7 @@ export class NavigationBar {
 
    public async searchFor(text: string) {
       await (this.getSearchButton()).click();
-      await (await this.getSearchField()).type(text, { delay: defaultTimer });
+      await (this.getSearchField()).type(text, { delay: defaultTimer });
       await this.page.keyboard.press("Enter");
    }
 

@@ -27,13 +27,13 @@ test.describe("GitLab general tests", async () => {
     test("Should display Home page title correctly", async () => {
         await homePage.visitPage();
         await homePage.getAcceptCookiesButton().click();
-        await (await homePage.navigationBar.getSimpleNavigationButtonByInnerText(MENU_BUTTONS_WITHOUT_DROP_DOWN.HOME)).click();
+        await homePage.navigationBar.getSimpleNavigationButtonByInnerText(MENU_BUTTONS_WITHOUT_DROP_DOWN.HOME).click();
         await homePage.waitUntilTitleContains(homePageTitle);
     })
 
     test("Should correctly display Newsletter page from Company drop-down list", async () => {
-        await (await homePage.navigationBar.getExtendedNavigationButtonByInnerText(MENU_BUTTONS_WITH_DROP_DOWN.COMPANY)).hover();
-        await (await homePage.navigationBar.getDropDownButtonByInnerText(COMPANY_DROP_DOWN.NEWSLETTER)).click();
+        await homePage.navigationBar.getExtendedNavigationButtonByInnerText(MENU_BUTTONS_WITH_DROP_DOWN.COMPANY).hover();
+        await homePage.navigationBar.getDropDownButtonByInnerText(COMPANY_DROP_DOWN.NEWSLETTER).click();
         await newsletterPage.waitUntilTitleContains(newsletterPageTitle);
     })
 

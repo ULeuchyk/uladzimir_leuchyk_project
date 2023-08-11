@@ -33,11 +33,11 @@ export class SignUpPage extends BasePage {
   }
 
   public async fillSignUpFields(firstName: string, lastName: string, username: string, email: string, password: string) {
-    await (await this.getInputFieldByName(SIGN_UP_FIELDS.FIRST_NAME)).type(firstName, { delay: defaultTimer });
-    await (await this.getInputFieldByName(SIGN_UP_FIELDS.LAST_NAME)).type(lastName, { delay: defaultTimer });
-    await (await this.getInputFieldByName(SIGN_UP_FIELDS.USERNAME)).type(username, { delay: defaultTimer });
-    await (await this.getInputFieldByName(SIGN_UP_FIELDS.EMAIL)).type(email, { delay: defaultTimer });
-    await (await this.getInputFieldByName(SIGN_UP_FIELDS.PASSWORD)).type(password, { delay: defaultTimer });
+    await this.getInputFieldByName(SIGN_UP_FIELDS.FIRST_NAME).type(firstName, { delay: defaultTimer });
+    await this.getInputFieldByName(SIGN_UP_FIELDS.LAST_NAME).type(lastName, { delay: defaultTimer });
+    await this.getInputFieldByName(SIGN_UP_FIELDS.USERNAME).type(username, { delay: defaultTimer });
+    await this.getInputFieldByName(SIGN_UP_FIELDS.EMAIL).type(email, { delay: defaultTimer });
+    await this.getInputFieldByName(SIGN_UP_FIELDS.PASSWORD).type(password, { delay: defaultTimer });
   }
 
   public async clickContinueButton() {
@@ -46,11 +46,11 @@ export class SignUpPage extends BasePage {
 
 
   public async cleanSignUpInputFields() {
-    await (await this.getInputFieldByName(SIGN_UP_FIELDS.FIRST_NAME)).fill('')
-    await (await this.getInputFieldByName(SIGN_UP_FIELDS.LAST_NAME)).fill('')
-    await (await this.getInputFieldByName(SIGN_UP_FIELDS.USERNAME)).fill('')
-    await (await this.getInputFieldByName(SIGN_UP_FIELDS.EMAIL)).fill('')
-    await (await this.getInputFieldByName(SIGN_UP_FIELDS.PASSWORD)).fill('')
+    await this.getInputFieldByName(SIGN_UP_FIELDS.FIRST_NAME).fill('')
+    await this.getInputFieldByName(SIGN_UP_FIELDS.LAST_NAME).fill('')
+    await this.getInputFieldByName(SIGN_UP_FIELDS.USERNAME).fill('')
+    await this.getInputFieldByName(SIGN_UP_FIELDS.EMAIL).fill('')
+    await this.getInputFieldByName(SIGN_UP_FIELDS.PASSWORD).fill('')
   }
 
 }
