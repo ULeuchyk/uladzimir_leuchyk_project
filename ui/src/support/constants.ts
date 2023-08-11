@@ -13,7 +13,7 @@ export const validLastName = "Dominos"
 export const validUsername = generateRandomString(10)
 export const validEmail = generateRandomString(5)+"@tesdfsadfsdfst.gultest"
 export const validPassword = "1234TYdas"
-export const tooLongFirstname = generateRandomString(128)
+export const tooLongFirstName = generateRandomString(128)
 export const alreadyTakenUsername = 'Bear'
 export const lengthErrorLocator = `//div[@class ="col form-group"]//p[@class = 'gl-field-error']`
 export const lengthErrorText = "First name is too long (maximum is 127 characters)" 

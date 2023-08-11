@@ -11,7 +11,7 @@ export class SignUpPage extends BasePage {
   }
 
 
-  public async getInputFieldByName(field: SIGN_UP_FIELDS) {
+  public getInputFieldByName(field: SIGN_UP_FIELDS) {
     return this.page.locator(`#new_user_${field}`)
   }
 
@@ -40,7 +40,7 @@ export class SignUpPage extends BasePage {
     await (await this.getInputFieldByName(SIGN_UP_FIELDS.PASSWORD)).type(password, { delay: defaultTimer });
   }
 
-  public async clickContinueButtonOnSignUpForm() {
+  public async clickContinueButton() {
     await this.getContinueButton().click()
   }
 

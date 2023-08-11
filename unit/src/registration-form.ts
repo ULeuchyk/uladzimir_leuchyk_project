@@ -34,8 +34,7 @@ export class RegistrationForm {
     if (errorMessage) {
       return errorMessage.trim();
     }
-    {
       return `Congratulations! New user ${this.name} is created`;
-    }
+    
   }
 }

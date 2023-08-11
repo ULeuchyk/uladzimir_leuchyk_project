@@ -6,15 +6,15 @@ import { BUTTON_SIGN, COMPANY_DROP_DOWN, MENU_BUTTONS_WITHOUT_DROP_DOWN, MENU_BU
 export class NavigationBar {
    constructor(protected readonly page: Page) { }
 
-   public async getSimpleNavigationButtonByInnerText(text: MENU_BUTTONS_WITHOUT_DROP_DOWN) {
+   public getSimpleNavigationButtonByInnerText(text: MENU_BUTTONS_WITHOUT_DROP_DOWN) {
       return this.page.locator(`//div[@class ='navigation']//a[contains(@name ,"${text}")]`)
    }
 
-   public async getExtendedNavigationButtonByInnerText(text: MENU_BUTTONS_WITH_DROP_DOWN) {
+   public getExtendedNavigationButtonByInnerText(text: MENU_BUTTONS_WITH_DROP_DOWN) {
       return this.page.locator(`//button[contains(@name ,"${text}")]`)
    }
 
-   public async getDropDownButtonByInnerText(text: COMPANY_DROP_DOWN) {
+   public getDropDownButtonByInnerText(text: COMPANY_DROP_DOWN) {
       return this.page.locator(`//span[@class='slp-text-body2'][text() = "${text}"]`)
    }
 
@@ -23,7 +23,7 @@ export class NavigationBar {
    }
 
 
-   public async getSearchField() {
+   public getSearchField() {
       return this.page.locator(`//div[@id="be-navigation-desktop"]//input[@placeholder="Search"]`);
    }
 

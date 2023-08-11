@@ -1,7 +1,7 @@
 import { expect, test } from "@playwright/test"
 import { PageFactory } from "../src/pages/pageFactory"
 import { BUTTON_SIGN, COMPANY_DROP_DOWN, MENU_BUTTONS_WITHOUT_DROP_DOWN, MENU_BUTTONS_WITH_DROP_DOWN, PAGES } from "../src/support/types"
-import { SIGN_UP_URL, alreadyTakenUsername, homePageTitle, lengthErrorText, newsletterPageTitle, searchObject, tooLongFirstname, validEmail, validFirstName, validLastName, validPassword, validUsername } from "../src/support/constants"
+import { SIGN_UP_URL, alreadyTakenUsername, homePageTitle, lengthErrorText, newsletterPageTitle, searchObject, tooLongFirstName, validEmail, validFirstName, validLastName, validPassword, validUsername } from "../src/support/constants"
 import { HomePage } from "../src/pages/homePage";
 import { NewsletterPage } from "../src/pages/newsletterPage";
 import { SignUpPage } from "../src/pages/signUpPage";
@@ -43,29 +43,29 @@ test.describe("GitLab general tests", async () => {
     })
 
     test("Should open Sign Up page correctly", async () => {
-        await (await newsletterPage.navigationBar.getSignButtonByText(BUTTON_SIGN.UP)).click();
+        await newsletterPage.navigationBar.getSignButtonByText(BUTTON_SIGN.UP).click();
         signUpPage.waitUntilUrlContains(SIGN_UP_URL)
     })
 })
 test.describe("GitLab SignUp tests", async () => {
-    test.beforeEach(async ({ browser }) => {
+    test.beforeEach(async () => {
         await signUpPage.cleanSignUpInputFields()
     })
 
     test("Should display warning message if First name has more than 127 letter", async () => {
-        await signUpPage.fillSignUpFields(tooLongFirstname, '', '', '', '')
+        await signUpPage.fillSignUpFields(tooLongFirstName, '', '', '', '')
         expect(await signUpPage.getLengthErrorLocator().innerText()).toContain(lengthErrorText)
     })
 
     test("Should display error message if Username is already taken", async () => {
         await signUpPage.fillSignUpFields(validFirstName, validLastName, alreadyTakenUsername, validEmail, validPassword)
-        await signUpPage.clickContinueButtonOnSignUpForm()
-        expect(signUpPage.getUsernameErrorLocator()).toBeVisible()
+        await signUpPage.clickContinueButton()
+        await expect(signUpPage.getUsernameErrorLocator()).toBeVisible()
     })
 
     test("Should register new user", async () => {
         await signUpPage.fillSignUpFields(validFirstName, validLastName, validUsername, validEmail, validPassword)
-        await signUpPage.clickContinueButtonOnSignUpForm()
-        expect(signUpPage.getConfirmationMessage()).toBeVisible()
+        await signUpPage.clickContinueButton()
+        await expect( signUpPage.getConfirmationMessage()).toBeVisible()
     })
 })

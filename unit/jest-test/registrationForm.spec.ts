@@ -15,8 +15,8 @@ import {
   validPasswordEightCharacters,
   invalidPasswordWithoutSpecialSymbol,
   invalidPasswordWithoutCapital,
-  invalidPasswordWithoutdigit,
-  EmailError
+  EmailError,
+  invalidPasswordWithoutDigit
 } from '../src/constants/constants';
 
 describe('RegistrationForm Tests', () => {
@@ -106,8 +106,8 @@ describe('RegistrationForm Tests', () => {
     registrationForm = new RegistrationForm(
       invalidName,
       validEmail,
-      invalidPasswordWithoutdigit,
-      invalidPasswordWithoutdigit
+      invalidPasswordWithoutDigit,
+      invalidPasswordWithoutDigit
     );
     expect(registrationForm.submitForm()).toBe(NameError + "\n" + PasswordError);
   });
